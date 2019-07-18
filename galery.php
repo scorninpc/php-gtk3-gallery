@@ -71,12 +71,29 @@ $hbox->pack_start($vbox, TRUE, TRUE, 0);
 
 $hbox = new GtkBox(GtkOrientation::VERTICAL, 5);
 	$vbox->pack_start($hbox, TRUE, TRUE, 0);
+
+	// ----
 	$hbox->pack_start($a=new GtkLabel("GtkEntry"), FALSE, TRUE, 0); $a->set_xalign(0);
 	$hbox->pack_start(new GtkEntry(), FALSE, TRUE, 0);
 
+	// ----
 	$hbox->pack_start($a=new GtkLabel("GtkTextView"), FALSE, TRUE, 0); $a->set_xalign(0);
 	$hbox->pack_start($s=new GtkScrolledWindow(), FALSE, TRUE, 0); $s->add($t=new GtkTextView()); $s->set_size_request(NULL, 80);
 
+	// ----
+		$model = new GtkListStore(GObject::TYPE_STRING, GObject::TYPE_STRING);
+		$model->insert(["1", "Test 1"]);
+		$model->insert(["2", "Test 2"]);
+		$model->insert(["2", "Test 3"]);
+	$hbox->pack_start($a=new GtkLabel("GtkComboBox"), FALSE, TRUE, 0); $a->set_xalign(0);
+	$hbox->pack_start($s=GtkComboBox::new_with_model($model), FALSE, TRUE, 0);
+		$cellRenderer = new GtkCellRendererText();
+		$s->pack_start($cellRenderer, TRUE, TRUE, 0);
+		$s->add_attribute($cellRenderer, 'text', 0);
+		$s->set_active(2);
+		
+
+	// ----
 	$hbox->pack_start(new GtkFixed(), TRUE, TRUE, 0);
 
 $hbox = new GtkBox(GtkOrientation::VERTICAL, 5);
@@ -88,7 +105,6 @@ $hbox = new GtkBox(GtkOrientation::VERTICAL, 5);
 	$hbox->pack_start($s=new GtkScrolledWindow(), FALSE, TRUE, 0); $s->add($t=new GtkTextView()); $s->set_size_request(NULL, 80);
 
 	$hbox->pack_start(new GtkFixed(), TRUE, TRUE, 0);
-
 
 
 // ----
